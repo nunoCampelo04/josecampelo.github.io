@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+        }
+
+        body {
+            background-image: url('images/fundoEE.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            position: relative;
+            color: #333;
+        }
+
+        nav {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .profile-container {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            background: rgba(211, 211, 211, 0.8); /* Cinzento claro */
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-text {
+            max-width: 600px;
+        }
+
+        .profile-text h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-text p {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            background-color: #007bff;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            background-color: #0056b3;
+        }
+
+        .portfolio {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(211, 211, 211, 0.8); /* Cinzento claro */
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .portfolio h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1a1a1a;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(211, 211, 211, 0.8); /* Cinzento claro */
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            backdrop-filter: blur(5px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-info h3 {
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-info p {
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-links a {
+            background-color: rgba(240, 240, 240, 0.6);
+            color: #333;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .project-links a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+                padding: 2rem;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <ul>
+        <li><a href="#home">Início</a></li>
+        <li><a href="#portfolio">Portfólio</a></li>
+    </ul>
+</nav>
+
+<section id="home" class="hero">
+    <div class="profile-container">
+        <img src="images/foto%20.jpg" alt="Minha foto de perfil" class="profile-image">
+        <div class="profile-text">
+            <h1>Olá, eu sou o José Nuno Campelo</h1>
+            <p>Estudante de Engenharia e Gestão de Sistemas de Informação na Universidade do Minho..</p>
+            <div class="social-links">
+                <a href="https://github.com/nunoCampelo04" target="_blank">GitHub</a>
+                <a href="https://www.linkedin.com/in/nuno-campelo/" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="portfolio" class="portfolio">
+    <h2>Meus Projetos</h2>
+    <div class="projects-grid">
+        <!-- Projeto 1 -->
+        <div class="project-card">
+            <img src="images/img.png" alt="Projeto 1" class="project-image">
+            <div class="project-info">
+                <h3>MarketPlace System</h3>
+                <p>Uma simulação de um marketplace, onde o cliente e o servidor comunicam através de Sockets e de  Flask. A segurança da comubicação é garantida através de criptografia RSA e de certificados e assinaturas nas mensagens.</p>
+                <div class="project-links">
+                    <a href="#" target="_blank">Demo</a>
+                    <a href="#" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projeto 2 -->
+        <div class="project-card">
+            <img src="/api/placeholder/400/200" alt="Projeto 2" class="project-image">
+            <div class="project-info">
+                <h3>Task Manager</h3>
+                <p>Aplicativo de gerenciamento de tarefas com React Native</p>
+                <div class="project-links">
+                    <a href="#" target="_blank">Demo</a>
+                    <a href="#" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projeto 3 -->
+        <div class="project-card">
+            <img src="/api/placeholder/400/200" alt="Projeto 3" class="project-image">
+            <div class="project-info">
+                <h3>Weather App</h3>
+                <p>Aplicativo de previsão do tempo usando APIs públicas</p>
+                <div class="project-links">
+                    <a href="#" target="_blank">Demo</a>
+                    <a href="#" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Animações com GSAP
+    gsap.to(".profile-container", {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out"
+    });
+
+    // Animação dos cards de projeto quando entram na viewport
+    const projectCards = document.querySelectorAll('.project-card');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                gsap.to(entry.target, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    delay: index * 0.2,
+                    ease: "power3.out"
+                });
+            }
+        });
+    }, {threshold: 0.1});
+
+    projectCards.forEach(card => observer.observe(card));
+
+    // Smooth scroll para as ancoras
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            window.scrollTo({
+                top: targetElement.offsetTop - 60,
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+</body>
+</html>
